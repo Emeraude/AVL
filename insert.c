@@ -4,7 +4,7 @@
 struct s_node dummy = {0, 0, &dummy, &dummy};
 struct s_node *nil = &dummy;
 
-t_node *rotate_right(t_node **root) {
+t_node *rotate_left(t_node **root) {
   t_node *old_root = *root;
   t_node *new_root = (*root)->right;
 
@@ -18,7 +18,7 @@ t_node *rotate_right(t_node **root) {
   return new_root;
 }
 
-t_node *rotate_left(t_node **root) {
+t_node *rotate_right(t_node **root) {
   t_node *old_root = *root;
   t_node *new_root = (*root)->left;
 
@@ -33,19 +33,21 @@ t_node *rotate_left(t_node **root) {
 }
 
 void balance(t_node **root) {
-  if (BALANCE(*root)) {
-    if ((1 - BALANCE(*root)) / 2 == 0) {
-      if (BALANCE((*root)->left) == -BALANCE(*root))
+  int b = BALANCE(*root) / 2;
+
+  if (b) {
+    if ((1 - b) / 2) {
+      if (BALANCE((*root)->left) == -b)
 	rotate_right(&(*root)->left);
       *root = rotate_left(root);
     }
     else {
-      if (BALANCE((*root)->right) == -BALANCE(*root))
+      if (BALANCE((*root)->right) == -b)
 	rotate_left(&(*root)->right);
       *root = rotate_right(root);
     }
   }
-  if (*root == nil)
+  if (*root != nil)
     (*root)->height = 1 + MAX((*root)->left->height, (*root)->right->height);
 }
 
@@ -60,14 +62,14 @@ void insert(t_node **root, int val) {
     (*root)->left = nil;
     (*root)->right = nil;
   }
-  else if (val == (*root)->val)
-    return;
-  else if (val > (*root)->val) {
-    insert(&(*root)->right, val);
-    balance(root);
-  }
-  else {
-    insert(&(*root)->left, val);
-    balance(root);
+  else if (val != (*root)->val) {
+    if (val > (*root)->val) {
+      insert(&(*root)->right, val);
+      balance(root);
+    }
+    else {
+      insert(&(*root)->left, val);
+      balance(root);
+    }
   }
 }
