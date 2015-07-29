@@ -14,5 +14,7 @@ int main(void)
       insert(&root, rand() % 32);
 
   show(root);
+  delete(&root, 12);
+  show(root);
   return 0;
 }
