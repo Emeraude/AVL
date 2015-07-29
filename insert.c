@@ -37,13 +37,13 @@ void balance(t_node **root) {
 
   if (b) {
     if ((1 - b) / 2) {
-      if (BALANCE((*root)->left) == -b)
-	rotate_right(&(*root)->left);
+      if (BALANCE((*root)->right) == -b)
+	rotate_right(&(*root)->right);
       *root = rotate_left(root);
     }
     else {
-      if (BALANCE((*root)->right) == -b)
-	rotate_left(&(*root)->right);
+      if (BALANCE((*root)->left) == -b)
+	rotate_left(&(*root)->left);
       *root = rotate_right(root);
     }
   }
