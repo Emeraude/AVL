@@ -13,6 +13,6 @@ int main(void)
     if (rand()&1)
       insert(&root, rand() % 32);
 
-  /* show_tree(root, 0, 0); */
+  show(root);
   return 0;
 }

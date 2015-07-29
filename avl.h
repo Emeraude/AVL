@@ -11,6 +11,7 @@ extern struct s_node dummy;
 extern struct s_node *nil;
 
 void insert(t_node **root, int val);
+void show(t_node *root);
 
 #define MAX(x, y)	(x < y ? y : x)
 #define BALANCE(x)	((x)->left->height - (x)->right->height)
