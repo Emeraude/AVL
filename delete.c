@@ -12,8 +12,8 @@ void delete(t_node **root, int val) {
       return;
   }
   if (val > (*root)->val)
-    delete(&(*root)->right, val);
+    delete(&(*root)->node[1], val);
   else
-    delete(&(*root)->left, val);
+    delete(&(*root)->node[0], val);
   balance(root);
 }

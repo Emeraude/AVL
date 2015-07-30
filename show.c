@@ -19,7 +19,7 @@ static void __show(t_node *root, t_trunk *prev, int is_left) {
 
   if (root == nil)
     return;
-  __show(root->left, &disp, 1);
+  __show(root->node[0], &disp, 1);
   if (!prev)
     disp.str = "---";
   else if (is_left) {
@@ -35,7 +35,7 @@ static void __show(t_node *root, t_trunk *prev, int is_left) {
   if (prev)
     prev->str = prev_str;
   disp.str = "   |";
-  __show(root->right, &disp, 0);
+  __show(root->node[1], &disp, 0);
   if (!prev)
     printf("\n");
 }
