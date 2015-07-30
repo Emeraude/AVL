@@ -48,7 +48,7 @@ static void __default_hook_print(void const* const a) {
 
 void avl_show(t_avl *avl) {
   if (!avl->hook_print) {
-    fprintf(stderr, "%s: Warning: no print hook defined. Using default comparators.\n", __FUNCTION__);
+    fprintf(stderr, "%s: Warning: no print hook defined. Using default.\n", __FUNCTION__);
     avl->hook_print = __default_hook_print;
   }
   __show(avl, avl->root, NULL, 0);

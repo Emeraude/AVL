@@ -25,8 +25,9 @@ void delete(t_node **root, int val);
 
 t_avl *avl_new();
 void avl_insert(t_avl *const avl, void *const val);
-void avl_delete(t_avl *const avl, void *const val);
+void *avl_search(t_avl *const avl, void *val);
 void avl_show(t_avl *avl);
+void avl_delete(t_avl *const avl, void *const val);
 
 #define MAX(x, y)	(x < y ? y : x)
 #define BALANCE(x)	((x)->node[0]->height - (x)->node[1]->height)

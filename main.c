@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include "avl.h"
 
-int main(int ac, char **av)
-{
+int main(int ac, char **av) {
   int x;
   t_avl *avl;
 
