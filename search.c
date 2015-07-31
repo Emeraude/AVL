@@ -7,7 +7,7 @@ void *__search(t_avl *const avl, t_node *const root, void *val) {
   else if (!avl->hook_cmp(root->val, val))
     return root->val;
   else
-    __search(avl, root->node[avl->hook_cmp(root->val, val) > 0], val);
+    return __search(avl, root->node[avl->hook_cmp(root->val, val) > 0], val);
 }
 
 static int __default_hook_cmp(void const* const a, void const *const b) {
