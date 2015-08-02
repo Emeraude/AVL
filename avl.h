@@ -1,13 +1,7 @@
 #pragma once
 
-typedef struct s_node {
-  void *val;
-  int height;
-  struct s_node *node[2];
-} t_node;
-
 typedef struct s_avl {
-  t_node *root;
+  void *root;
   int (*hook_cmp)(const void *, const void *);
   void (*hook_print)(const void *);
   void (*hook_delete)(const void *);

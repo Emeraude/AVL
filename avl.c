@@ -2,6 +2,12 @@
 #include <string.h>
 #include "avl.h"
 
+typedef struct s_node {
+  void *val;
+  int height;
+  struct s_node *node[2];
+} t_node;
+
 static struct s_node dummy = {0, 0, {&dummy, &dummy}};
 static struct s_node *nil = &dummy;
 
@@ -141,7 +147,7 @@ void avl_insert(t_avl *const avl, void *const val) {
     fprintf(stderr, "%s: Warning: no cmp hook defined. Using default comparators.\n", __FUNCTION__);
     avl->hook_cmp = __default_hook_cmp;
   }
-  __insert(avl, &avl->root, val);
+  __insert(avl, (t_node **)&avl->root, val);
 }
 
 void avl_delete(t_avl *const avl, void *const val) {
@@ -149,7 +155,7 @@ void avl_delete(t_avl *const avl, void *const val) {
     fprintf(stderr, "%s: Warning: no cmp hook defined. Using default comparators.\n", __FUNCTION__);
     avl->hook_cmp = __default_hook_cmp;
   }
-  __delete(avl, &avl->root, val);
+  __delete(avl, (t_node **)&avl->root, val);
 }
 
 void *avl_search(t_avl *const avl, void *val) {
@@ -157,7 +163,7 @@ void *avl_search(t_avl *const avl, void *val) {
     fprintf(stderr, "%s: Warning: no cmp hook defined. Using default comparators.\n", __FUNCTION__);
     avl->hook_cmp = __default_hook_cmp;
   }
-  return __search(avl, avl->root, val);
+  return __search(avl, (t_node *)avl->root, val);
 }
 
 void avl_show(t_avl *avl) {
@@ -165,5 +171,5 @@ void avl_show(t_avl *avl) {
     fprintf(stderr, "%s: Warning: no print hook defined. Using default.\n", __FUNCTION__);
     avl->hook_print = __default_hook_print;
   }
-  __show(avl, avl->root, NULL, 0);
+  __show(avl, (t_node *)avl->root, NULL, 0);
 }
