@@ -2,14 +2,17 @@
 #include <string.h>
 #include "avl.h"
 
+#define MAX(x, y)	(x < y ? y : x)
+#define BALANCE(x)	((x)->node[0]->height - (x)->node[1]->height)
+
 typedef struct s_node {
   void *val;
   int height;
   struct s_node *node[2];
 } t_node;
 
-static struct s_node dummy = {0, 0, {&dummy, &dummy}};
-static struct s_node *nil = &dummy;
+static t_node dummy = {0, 0, {&dummy, &dummy}};
+static t_node *nil = &dummy;
 
 /* Used by avl_show */
 typedef struct s_trunk {
