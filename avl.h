@@ -4,7 +4,7 @@ typedef struct s_avl {
   void *root;
   int (*hook_cmp)(const void *, const void *);
   void (*hook_print)(const void *);
-  void (*hook_delete)(const void *);
+  void (*hook_delete)(void *);
 } t_avl;
 
 t_avl *avl_new();
