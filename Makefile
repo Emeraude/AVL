@@ -1,9 +1,6 @@
 NAME	= avl.so
 
-SRCS	= delete.c
-SRCS	+= insert.c
-SRCS	+= search.c
-SRCS	+= show.c
+SRCS	= avl.c
 
 OBJS	= $(SRCS:.c=.o)
 

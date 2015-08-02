@@ -13,12 +13,6 @@ typedef struct s_avl {
   void (*hook_delete)(const void *);
 } t_avl;
 
-extern struct s_node dummy;
-extern struct s_node *nil;
-
-t_node *rotate(t_node **root, int side);
-void balance(t_node **root);
-
 t_avl *avl_new();
 void avl_insert(t_avl *const avl, void *const val);
 void *avl_search(t_avl *const avl, void *val);
