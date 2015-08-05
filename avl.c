@@ -136,6 +136,7 @@ static void __show(t_avl const *const avl, t_node const *const root, t_trunk *co
     prev->str = prev_str;
   }
   show_trunks(&disp);
+  fflush(stdin);
   avl->hook_print(root->val);
   if (prev)
     prev->str = prev_str;
