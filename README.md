@@ -16,7 +16,7 @@ typedef struct s_avl {
 ```
 
 **root** is a pointer to the root of the tree. You don't have to modify it;  
-**hook_cmp** is a function used to compare two functions, because datas in the avl are *void \**. The function must have the same behavior than *strcmp*.  
+**hook_cmp** is a function used to compare two functions, because datas in the avl are `void *`. The function must have the same behavior than *strcmp*.  
 **hook_print** is a function used to print the value of your data. It must not contain any \n.  
 **hook_remove** is the function that is called before any deletion in the AVL. it can be used if your data need to be freed for example.
 
