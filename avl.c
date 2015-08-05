@@ -30,7 +30,7 @@ static void __default_hook_print(void const* const a) {
 }
 
 /* rotation and balance */
-static t_node *rotate(t_avl *avl, t_node **root, int side) {
+static t_node *rotate(t_avl const *const avl, t_node **const root, int const side) {
   t_node *old_root = *root;
   t_node *new_root = (*root)->node[side];
 
@@ -47,7 +47,7 @@ static t_node *rotate(t_avl *avl, t_node **root, int side) {
   return new_root;
 }
 
-static void balance(t_avl *avl, t_node **root) {
+static void balance(t_avl const *const avl, t_node **const root) {
   int b = BALANCE(*root) / 2;
 
   if (b) {
@@ -61,7 +61,7 @@ static void balance(t_avl *avl, t_node **root) {
 }
 
 /* insertion */
-static void __insert(t_avl *const avl, t_node **root, void *val) {
+static void __insert(t_avl const *const avl, t_node **const root, void *val) {
   if (*root == nil) {
     if (!(*root = malloc(sizeof(**root)))) {
       perror("malloc");
@@ -79,7 +79,7 @@ static void __insert(t_avl *const avl, t_node **root, void *val) {
 }
 
 /* deletion */
-static void __remove(t_avl *avl, t_node **root, void *val) {
+static void __remove(t_avl const *const avl, t_node **const root, void *val) {
   if (*root == nil)
     return;
   if (!avl->hook_cmp((*root)->val, val)) {
@@ -90,7 +90,7 @@ static void __remove(t_avl *avl, t_node **root, void *val) {
   balance(avl, root);
 }
 
-static void __delete_all(t_avl *avl, t_node *root) {
+static void __delete_all(t_avl const *const avl, t_node *const root) {
   if (root == nil)
     return;
   __delete_all(avl, root->node[0]);
@@ -111,14 +111,14 @@ static void *__search(t_avl *const avl, t_node *const root, void *val) {
 }
 
 /* show */
-static void show_trunks(t_trunk *trunk) {
+static void show_trunks(t_trunk const *const trunk) {
   if (!trunk)
     return;
   show_trunks(trunk->prev);
   printf("%s", trunk->str);
 }
 
-static void __show(t_avl *avl, t_node *root, t_trunk *prev, int is_left) {
+static void __show(t_avl const *const avl, t_node const *const root, t_trunk *const prev, int const is_left) {
   t_trunk disp = {"    ", prev};
   char *prev_str = disp.str;
 
@@ -146,7 +146,7 @@ static void __show(t_avl *avl, t_node *root, t_trunk *prev, int is_left) {
 }
 
 /* functions callable externally */
-t_avl *avl_new() {
+t_avl *avl_new(void) {
   t_avl *avl;
 
   if (!(avl = malloc(sizeof(*avl)))) {
@@ -182,7 +182,7 @@ void *avl_search(t_avl *const avl, void *val) {
   return __search(avl, (t_node *)avl->root, val);
 }
 
-void avl_show(t_avl *avl) {
+void avl_show(t_avl *const avl) {
   if (!avl->hook_print) {
     fprintf(stderr, "%s: Warning: no print hook defined. Using default.\n", __FUNCTION__);
     avl->hook_print = __default_hook_print;
