@@ -11,4 +11,4 @@ t_avl *avl_new();
 void avl_insert(t_avl *const avl, void *const val);
 void *avl_search(t_avl *const avl, void *val);
 void avl_show(t_avl *avl);
-void avl_delete(t_avl *const avl, void *const val);
+void avl_remove(t_avl *const avl, void *const val);

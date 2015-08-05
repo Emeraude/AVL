@@ -156,7 +156,7 @@ void avl_insert(t_avl *const avl, void *const val) {
   __insert(avl, (t_node **)&avl->root, val);
 }
 
-void avl_delete(t_avl *const avl, void *const val) {
+void avl_remove(t_avl *const avl, void *const val) {
   if (!avl->hook_cmp) {
     fprintf(stderr, "%s: Warning: no cmp hook defined. Using default comparators.\n", __FUNCTION__);
     avl->hook_cmp = __default_hook_cmp;
