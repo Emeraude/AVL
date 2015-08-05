@@ -35,8 +35,8 @@ static t_node *rotate(t_avl *avl, t_node **root, int side) {
   t_node *new_root = (*root)->node[side];
 
   if ((*root = new_root) == nil) {
-    if (avl->hook_delete)
-      avl->hook_delete(old_root->val);
+    if (avl->hook_remove)
+      avl->hook_remove(old_root->val);
     free(old_root);
   }
   else {
@@ -79,15 +79,25 @@ static void __insert(t_avl *const avl, t_node **root, void *val) {
 }
 
 /* deletion */
-static void __delete(t_avl *avl, t_node **root, void *val) {
+static void __remove(t_avl *avl, t_node **root, void *val) {
   if (*root == nil)
     return;
   if (!avl->hook_cmp((*root)->val, val)) {
     if ((*root = rotate(avl, root, BALANCE(*root) < 0)) == nil)
       return;
   }
-  __delete(avl, &(*root)->node[avl->hook_cmp(val, (*root)->val) < 0], val);
+  __remove(avl, &(*root)->node[avl->hook_cmp(val, (*root)->val) < 0], val);
   balance(avl, root);
+}
+
+static void __delete_all(t_avl *avl, t_node *root) {
+  if (root == nil)
+    return;
+  __delete_all(avl, root->node[0]);
+  __delete_all(avl, root->node[1]);
+  if (avl->hook_remove)
+    avl->hook_remove(root->val);
+  free(root);
 }
 
 /* searching */
@@ -161,7 +171,7 @@ void avl_remove(t_avl *const avl, void *const val) {
     fprintf(stderr, "%s: Warning: no cmp hook defined. Using default comparators.\n", __FUNCTION__);
     avl->hook_cmp = __default_hook_cmp;
   }
-  __delete(avl, (t_node **)&avl->root, val);
+  __remove(avl, (t_node **)&avl->root, val);
 }
 
 void *avl_search(t_avl *const avl, void *val) {
@@ -178,4 +188,9 @@ void avl_show(t_avl *avl) {
     avl->hook_print = __default_hook_print;
   }
   __show(avl, (t_node *)avl->root, NULL, 0);
+}
+
+void avl_delete(t_avl *const avl) {
+  __delete_all(avl, (t_node *)avl->root);
+  free(avl);
 }
